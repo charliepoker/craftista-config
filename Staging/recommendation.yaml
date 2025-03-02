@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendation
+  namespace: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recommendation
+  template:
+    metadata:
+      labels:
+        app: recommendation
+    spec:
+      containers:
+      - name: recommendation
+        image: username/craftista-recommendation:latest
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: "512Mi"
+          requests:
+            cpu: "0.1"
+            memory: "128Mi"
+        env:
+        - name: CATALOGUE_SERVICE_URL
+          value: "http://catalogue:5000"
+        - name: VOTING_SERVICE_URL
+          value: "http://voting:8080"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendation
+  namespace: staging
+spec:
+  selector:
+    app: recommendation
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP
