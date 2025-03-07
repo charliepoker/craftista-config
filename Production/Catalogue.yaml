@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: catalogue
-        image: username/craftista-catalogue:latest
+        image: 8060633493/craftista-catalogue:latest
         ports:
         - containerPort: 5000
         resources:

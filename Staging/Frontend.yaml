@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: username/craftista-frontend:latest
+        image: 8060633493/craftista-frontend:latest
         ports:
         - containerPort: 3000
         resources:

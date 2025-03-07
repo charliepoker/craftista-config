@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: voting
-        image: username/craftista-voting:latest
+        image: 8060633493/craftista-voting:latest
         ports:
         - containerPort: 8080
         resources:
